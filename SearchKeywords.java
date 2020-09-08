@@ -2,11 +2,11 @@ import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 
-public class SearchWord {
+public class SearchKeywords {
     public static void main(String[] args) {
 
-        if (args.length != 2) {
-            System.out.println("Usage: SearchWord <filename> <keyword>");
+        if (args.length < 3 || args.length > 5) {
+            System.out.println("Usage: SearchWord <folderName> <fileExtension> <keyword1> <keyword2> <keyword3>");
             return;
         }
 
