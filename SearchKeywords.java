@@ -1,9 +1,9 @@
 import java.util.Scanner;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.File;
 import java.util.HashMap;
-import java.util.Arrays;
 
 public class SearchKeywords {
     public static void main(String[] args) {
@@ -11,8 +11,14 @@ public class SearchKeywords {
         if (args.length < 3 || args.length > 5) {
             System.out.println(
                     "Usage: SearchWord <folderName> <fileExtension> <keyword1> (optional): <keyword2> <keyword3>");
-            System.out.println(Arrays.toString(args));
             return;
+        }
+
+        try {
+            File outputFile = new File("output.txt");
+            outputFile.createNewFile();
+        } catch (Exception e) {
+            System.out.println("Failed to create output.txt");
         }
 
         File file = new File(args[0]);
@@ -22,7 +28,6 @@ public class SearchKeywords {
         String[] files = getAllFiles(file, extension);
 
         searchThroughFiles(files, keywords);
-
     }
 
     /**
@@ -46,10 +51,10 @@ public class SearchKeywords {
         }
 
         for (int i = 0; i < files.length; i++) {
-            System.out.println(files[i]);
+            writeOutput("\n" + files[i] + "\n");
             int[] test = fileResults.get(files[i]);
             for (int j = 0; j < test.length; j++) {
-                System.out.println(keywords[j] + ": " + test[j]);
+                writeOutput(keywords[j] + ": " + test[j] + "\n");
             }
         }
     }
@@ -136,9 +141,18 @@ public class SearchKeywords {
                 filepaths[i] = files[i].getPath();
             }
         }
-        System.out.println(
-                "The folder " + directory + " contains " + filepaths.length + " number of " + extension + " files.");
+        writeOutput("The folder " + directory + " contains " + filepaths.length + " " + extension + " file(s)." + "\n");
         return filepaths;
+    }
+
+    private static void writeOutput(String text) {
+        try {
+            FileWriter outputWriter = new FileWriter("output.txt", true);
+            outputWriter.write(text);
+            outputWriter.close();
+        } catch (Exception e) {
+            System.out.println("Could not write to file output.txt");
+        }
     }
 
 }
