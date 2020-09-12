@@ -75,16 +75,13 @@ public class SearchKeywords {
 
         FileReader searchFile = new FileReader(fileToParse);
         Scanner sc = new Scanner(searchFile);
-        while (sc.hasNextLine()) {
-            Scanner check = new Scanner(sc.nextLine());
-            while (check.hasNext()) {
-                String word = check.next();
-                for (int i = 0; i < searchWords.length; i++) {
-                    if (matchSearchWord(word, searchWords[i]))
-                        wordCounter[i]++;
-                }
-
+        while (sc.hasNext()) {
+            String word = sc.next();
+            for (int i = 0; i < searchWords.length; i++) {
+                if (matchSearchWord(word, searchWords[i]))
+                    wordCounter[i]++;
             }
+
         }
         sc.close();
         return wordCounter;
@@ -154,5 +151,4 @@ public class SearchKeywords {
             System.out.println("Could not write to file output.txt");
         }
     }
-
 }
