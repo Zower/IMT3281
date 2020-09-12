@@ -142,6 +142,11 @@ public class SearchKeywords {
         return filepaths;
     }
 
+    /**
+     * Writes out the given text to the output.txt file in the relative directory
+     * 
+     * @param text The text to write out.
+     */
     private static void writeOutput(String text) {
         try {
             FileWriter outputWriter = new FileWriter("output.txt", true);
